@@ -7,6 +7,7 @@ import useIsMobile from "@/hooks/useIsMobile";
 import { MobileNavigation } from "@/components/features/mobileNavigation/MobileNavigation";
 import { useRef } from "react";
 import { useSectionObserver } from "@/hooks/useSectionObserver";
+import { PrismProjectSelector } from "../features/mainSections/projectsSection/PrismProjectSelector";
 
 export const Layout: React.FC = () => {
   const isMobile = useIsMobile();
@@ -47,6 +48,13 @@ export const Layout: React.FC = () => {
           showTriangles && <PrismTriangles />
         )}
       </div>
+
+      {/* Prism selector for projects */}
+      {sectionFullyVisible["projects"]  && (
+        <div className={`fixed inset-0 ${prismHeights} z-40 pointer-events-none`}>
+          <PrismProjectSelector />
+        </div>
+      )}
 
       {/* Main scrollable content */}
       <div className="relative z-10">

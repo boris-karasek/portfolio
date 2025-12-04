@@ -13,7 +13,7 @@ interface UIState {
 
 export const useUIStore = create<UIState>((set) => ({
     currentSection: "hero",
-    activeProject: null,
+    activeProject: "project1",
     sectionFullyVisible: {},
     setCurrentSection: (section) => set({currentSection: section}),
     setActiveProject: (project) => set({ activeProject: project }),
