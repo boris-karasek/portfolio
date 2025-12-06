@@ -114,6 +114,13 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.grecaptcha-badge {
+  transform: scale(0.001);
+  transform-origin: bottom right;
+  right: -100px !important;
+  bottom: -100px !important;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
