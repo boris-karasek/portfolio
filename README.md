@@ -96,6 +96,7 @@ src/
 ### Store Management
 - **[`useUIStore`](src/store/useUIStore.ts)** – Tracks current section, active project, and visibility states
 - **[`usePrismStore`](src/store/usePrismStore.ts)** – Manages prism geometry and beam calculations
+- **[`useMobileNavStore`](src/store/useMobileNavStore.ts)** - Manages mobile navigation state
 
 ### Custom Hooks
 - **[`useIsMobile`](src/hooks/useIsMobile.ts)** – Detects mobile viewport
@@ -109,7 +110,6 @@ src/
 ## 🚀 Roadmap
 
 ### v1.1
-- [ ] Implement contact form with email integration
 - [ ] SEO optimization (meta tags, structured data)
 
 ### Prism Geometry

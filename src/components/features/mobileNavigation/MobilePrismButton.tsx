@@ -1,9 +1,21 @@
 import { motion } from "framer-motion";
 
-export const MobilePrismButton = ({ onClick }: { onClick: () => void }) => {
+export const MobilePrismButton = ({
+  onClick,
+  isOpen,
+}: {
+  onClick: () => void;
+  isOpen: boolean;
+}) => {
+
+  const handleClick = () => {
+    onClick();
+    if (navigator.vibrate) navigator.vibrate(20);
+  }
+
   return (
     <motion.button
-      onClick={onClick}
+      onClick={handleClick}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.35 }}
@@ -15,9 +27,14 @@ export const MobilePrismButton = ({ onClick }: { onClick: () => void }) => {
         flex items-center justify-center
         z-50
       "
-      style={{ pointerEvents: "auto" }}
+      style={{ willChange: "transform" }}
     >
-      <span className="text-black text-2xl font-bold">▲</span>
+      <motion.span 
+        className="text-black text-2xl font-bold"
+        animate={{ rotate: isOpen ? 180 : 0 }}
+        transition={{type: "tween", duration: 0.25}}
+      >▲
+      </motion.span>
     </motion.button>
   );
 };
