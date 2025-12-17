@@ -10,18 +10,18 @@ export const ProjectOne = () => {
 
   return (
     <section id="project-1">
-      <div className="space-y-1 text-center sm:text-left flex flex-col justify-end z-50">
-        <h2 className="text-xl sm:text-4xl lg:text-5xl font-bold">
+      <div className="space-y-1 text-center xl:text-left flex flex-col justify-end z-50">
+        <h2 className="text-xl sm:text-4xl 2xl:text-5xl font-bold text-gray-50">
           Boki-Edi Business Website
         </h2>
 
-        <h3 className="text-base sm:text-xl text-blue-400 underline">
+        <h3 className="text-base sm:text-xl 2xl:text-2xl bg-linear-to-br from-[#3A7DFF] via-[#6FFFEF] to-[#0EBE8C] text-transparent bg-clip-text ">
           <a href="https://www.boki-edi.com" target="_blank">
             Visit Website
           </a>
         </h3>
 
-        <p className="text-gray-300 text-sm sm:text-lg leading-relaxed">
+        <p className="text-gray-300 text-sm sm:text-base 2xl:text-lg leading-relaxed">
           A React website for Boki-Edi, a company specializing in the production
           and sale of metal haberdashery. The website showcases their product
           range, company information, and contact details. It is designed to be
@@ -32,7 +32,7 @@ export const ProjectOne = () => {
           website's visibility on search engines.
         </p>
 
-        <p className="font-semibold text-gray-200 text-lg sm:text-xl mt-6">
+        <p className="font-semibold text-gray-200 text-base sm:text-lg mt-6">
           Skills used:
         </p>
 

@@ -1,13 +1,22 @@
-import type { PrismGeometry, Point } from "@/components/lib/prism/prismTypes";
+import type { PrismGeometry, Point } from "@/types/prismTypes";
+
+const PRISM_SCALE = 0.7;
 
 export function computePrismGeometry(
   VIEWBOX_WIDTH: number,
   VIEWBOX_HEIGHT: number
 ): PrismGeometry {
+
+  const w = VIEWBOX_WIDTH * PRISM_SCALE;
+  const h = VIEWBOX_HEIGHT * PRISM_SCALE;
+
+  const offsetX = (VIEWBOX_WIDTH - w) / 2;
+  const offsetY = (VIEWBOX_HEIGHT - h) / 2;
+
   // --- Prism points ------------------------------------
-  const top: Point = { x: VIEWBOX_WIDTH / 2, y: VIEWBOX_HEIGHT * 0.07 };
-  const right: Point = { x: VIEWBOX_WIDTH * 0.75, y: VIEWBOX_HEIGHT * 0.93 };
-  const left: Point = { x: VIEWBOX_WIDTH * 0.25, y: VIEWBOX_HEIGHT * 0.93 };
+  const top: Point = { x: offsetX + w / 2,        y: offsetY + h * 0.07 };
+  const right: Point = { x: offsetX + w * 0.75,   y: offsetY + h * 0.93 };
+  const left: Point = { x: offsetX + w * 0.25,    y: offsetY + h * 0.93 };
 
   const toPointString = (p: Point) => `${p.x},${p.y}`;
   const toPolygonString = (pts: Point[]) => pts.map(toPointString).join(" ");

@@ -7,13 +7,20 @@ type Skill = {
 
 type SkillsGridProps = {
   skills: Skill[];
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "lg" | "xl";
 };
 
-export const SkillsGrid = ({ skills, size = "md" }: SkillsGridProps) => {
+export const SkillsGrid = ({ skills, size = "sm" }: SkillsGridProps) => {
 
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3 place-items-center">
+    <div className="grid
+        gap-2
+        sm:gap-3
+        lg:gap-2
+        xl:gap-3
+        place-items-center
+        grid-cols-[repeat(auto-fit,minmax(72px,1fr))]
+        sm:grid-cols-[repeat(auto-fit,minmax(88px,1fr))]">
       {skills.map((skill) => (
         <SkillCard key={skill.label} label={skill.label} icon={skill.icon} size={size}/>
       ))}

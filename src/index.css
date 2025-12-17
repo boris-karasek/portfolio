@@ -121,6 +121,18 @@
   bottom: -100px !important;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

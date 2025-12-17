@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import useIsMobile from "@/hooks/useIsMobile";
+import { useScreenStore } from "@/store/useScreenStore";
 
 export interface Star {
   id: number;
@@ -19,9 +19,9 @@ export const StarsBackground: React.FC<StarsBackgroundProps> = ({
   countMultiplier,
 }) => {
   const [stars, setStars] = useState<Star[]>([]);
-  const isMobile = useIsMobile();
+  const screen = useScreenStore((s) => s.screen);
 
-  countMultiplier = isMobile ? 20000 : 60000;
+  countMultiplier = (screen==="mobile") ? 20000 : 60000;
 
   const generateStars = () => {
     const numberOfStars = Math.floor(
