@@ -40,7 +40,7 @@ export const AboutMeSection = () => {
             asChild
             className="text-black hover:bg-linear-to-br hover:from-[#3A7DFF] hover:via-[#6FFFEF] hover:to-[#0EBE8C]"
           >
-            <a href="/resume.pdf" download>
+            <a href="/CV Boris Karasek.pdf" download>
               <Download className="w-4 h-4 mr-2" />
               Download Resume
             </a>
