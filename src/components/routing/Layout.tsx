@@ -1,79 +1,109 @@
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useUIStore, type SectionId } from "@/store/useUIStore";
 import { PrismBackground } from "@/components/features/background/PrismBackground";
-import { PrismTriangles } from "@/components/features/mainSections/heroSection/PrismTriangles";
-import useIsMobile from "@/hooks/useIsMobile";
 import { MobileNavigation } from "@/components/features/mobileNavigation/MobileNavigation";
-import { useRef } from "react";
 import { useSectionObserver } from "@/hooks/useSectionObserver";
-import { PrismProjectSelector } from "../features/mainSections/projectsSection/PrismProjectSelector";
 import { Toaster } from "../ui/sonner";
+import { useScreenListener } from "@/hooks/useScreenListener";
+import { useScreenStore } from "@/store/useScreenStore";
+import { useUIStore } from "@/store/useUIStore";
+import { PrismProjectSelector } from "../features/sections/projectsSection/PrismProjectSelector";
+import { PrismTriangles } from "../features/sections/heroSection/PrismTriangles";
+import { AnimatePresence, motion } from "framer-motion";
+import type { SectionId } from "@/store/useUIStore";
+import { scrollToSection } from "@/lib/scrollToSection";
+import { usePrismStore } from "@/store/usePrismStore";
 
 export const Layout: React.FC = () => {
-  const isMobile = useIsMobile();
-
-  const heroRef = useRef<HTMLElement | null>(null);
-  const aboutRef = useRef<HTMLElement | null>(null);
-  const projectsRef = useRef<HTMLElement | null>(null);
-  const contactRef = useRef<HTMLElement | null>(null);
-
-  const sections: {
-    id: SectionId;
-    ref: React.RefObject<HTMLElement | null>;
-  }[] = [
-    { id: "hero", ref: heroRef },
-    { id: "about", ref: aboutRef },
-    { id: "projects", ref: projectsRef },
-    { id: "contact", ref: contactRef },
-  ];
-
-  useSectionObserver(sections);
-
+  useScreenListener();
+  const screen = useScreenStore((s) => s.screen);
   const sectionFullyVisible = useUIStore((s) => s.sectionFullyVisible);
-  const showTriangles = !isMobile && sectionFullyVisible["hero"] === true;
+  const projectsVisible = sectionFullyVisible["projects"] === true;
+  const heroVisible = sectionFullyVisible["hero"] === true;
 
-  const prismHeights = "h-[30vh] sm:h-[50vh] md:h-screen";
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const initialize = usePrismStore((s) => s.initialize);
+
+  useSectionObserver();
+
+  useEffect(() => {
+    function updateDimensions() {
+      if (!containerRef.current) return;
+      const w = containerRef.current.clientWidth;
+      const h = w * 0.55;
+      initialize(w, h);
+    }
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
+  const handleSelect = (section: SectionId) => {
+    scrollToSection(section);
+  };
 
   return (
     <>
       <div
-        id="scroll-root"
-        className="relative min-h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-black"
+        ref={containerRef}
+        className={`absolute top-0 left-0 w-full z-10 pointer-events-none 
+          ${screen !== "desktop" ? "h-[30vh]" : "h-screen"} md:h-[50vh] xl:h-screen`}
       >
-        {/* Fixed background */}
-        <div
-          className={`fixed inset-0 ${prismHeights} pointer-events-none z-0`}
-        >
-          <PrismBackground className="absolute inset-0 w-full h-full" />
-        </div>
+        <PrismBackground />
+      </div>
 
-        {/* Triangles / mobile nav */}
-        <div
-          className={`fixed inset-0 ${prismHeights} z-30 pointer-events-none`}
-        >
-          {isMobile ? (
-            <div className="pointer-events-auto">
-              <MobileNavigation />
-            </div>
-          ) : (
-            showTriangles && <PrismTriangles />
-          )}
-        </div>
-
-        {/* Prism selector for projects */}
-        {sectionFullyVisible["projects"] && (
-          <div
-            className={`fixed inset-0 ${prismHeights} z-40 pointer-events-none`}
-          >
-            <PrismProjectSelector />
+      <div className="fixed top-0 left-0 w-full z-50 pointer-events-none">
+        {screen !== "desktop" && (
+          <div className="pointer-events-auto">
+            <MobileNavigation />
           </div>
         )}
-
-        {/* Main scrollable content */}
-        <div className="relative z-10">
-          <Outlet context={{ heroRef, aboutRef, projectsRef, contactRef }} />
-        </div>
       </div>
+
+      {projectsVisible && (
+        <div
+          className={`absolute top-0 left-0 w-full z-20 pointer-events-none 
+          ${screen !== "desktop" ? "h-[30vh]" : "h-screen"} md:h-[50vh] xl:h-screen`}
+        >
+          <PrismProjectSelector />
+        </div>
+      )}
+
+      <AnimatePresence>
+        {screen === "desktop" && heroVisible && (
+          <motion.div
+        className={`absolute top-0 left-0 w-full z-10 pointer-events-none 
+          ${screen !== "desktop" ? "h-[30vh]" : "h-screen"} md:h-[50vh] xl:h-screen`}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1 ,
+              transition: {
+                delay: 0.5,
+                duration: 0.3,
+                ease: "easeOut",
+              }
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.92,
+              transition: { duration: 0.25, ease: "easeInOut" },
+            }}
+          >
+            <div className="pointer-events-auto">
+              <PrismTriangles onSelect={handleSelect} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <main
+        id="scroll-root"
+        className="relative z-0 h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar bg-black"
+      >
+        <Outlet />
+      </main>
+
       <Toaster />
     </>
   );

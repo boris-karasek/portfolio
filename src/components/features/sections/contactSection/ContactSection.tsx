@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
 import { ContactInfoCard } from "./ContactInfoCard";
 import { ContactFormCard } from "./ContactFormCard";
+import { useSectionRefs } from "@/store/useSectionRefsStore";
 
 export const ContactSection = () => {
+  const contactRef = useSectionRefs((s) => s.refs.contact);
+
   return (
     <section
       id="contact"
-      className="text-white min-h-screen
+      ref={contactRef}
+      className="text-white min-h-screen snap-start
         px-5 sm:px-8 md:px-14 lg:px-20 xl:px-32
         py-16 sm:py-20 lg:py-28"
     >

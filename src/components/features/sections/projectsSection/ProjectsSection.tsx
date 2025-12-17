@@ -1,3 +1,4 @@
+import { useSectionRefs } from "@/store/useSectionRefsStore";
 import { ProjectOne } from "./ProjectOne";
 import { ProjectTwo } from "./ProjectTwo";
 import { useUIStore } from "@/store/useUIStore";
@@ -5,31 +6,47 @@ import { motion } from "framer-motion";
 
 export const ProjectsSection = () => {
   const activeProject = useUIStore((state) => state.activeProject);
+  const projectsRef = useSectionRefs((s) => s.refs.projects);
 
   const fadeVariants = {
-    active: { opacity: 1, scale: 1 },
-    inactive: { opacity: 0 }
+  active: {
+    opacity: 1,
+    scale: 1,
+    pointerEvents: "auto",
+    visibility: "visible"
+  },
+  inactive: {
+    opacity: 0,
+    scale: 0.98,
+    pointerEvents: "none",
+    visibility: "hidden"
+  }
   };
 
   return (
     <section
       id="projects"
+      ref={projectsRef}
       className="
-        relative z-20 w-full h-screen
+        relative z-20 w-full h-screen snap-start
         flex flex-col items-center
-        md:flex-row md:items-start
+        md:pt-[12vh]
+        lg:pt-[16vh]
+        xl:pt-0
+        xl:flex-row xl:items-start
       "
     >
+
       {/* ===== Project One ===== */}
       <motion.div
         animate={activeProject === "project1" ? "active" : "inactive"}
         variants={fadeVariants}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`
-          w-full md:w-1/2 p-4
-          flex justify-center md:justify-start text-center md:text-left
-          md:mt-10 md:p-16 md:mr-36
-          ${activeProject === "project1" ? "mt-[30vh]" : "hidden md:flex"}
+          w-full xl:w-1/2 p-4
+          flex justify-center xl:justify-start text-center 
+          xl:text-left xl:mt-2 xl:p-16 xl:mr-36
+          ${activeProject === "project1" ? "mt-[30vh]" : "hidden xl:flex"}
         `}
       >
         <ProjectOne />
@@ -41,10 +58,10 @@ export const ProjectsSection = () => {
         variants={fadeVariants}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`
-          w-full md:w-1/2 p-4
-          flex justify-center md:justify-end text-center md:text-right
-          md:mt-10 md:p-16 md:ml-36
-          ${activeProject === "project2" ? "mt-[30vh]" : "hidden md:flex"}
+          w-full xl:w-1/2 p-4 
+          flex justify-center xl:justify-end text-center xl:text-right
+          xl:mt-2 xl:p-16 xl:ml-36
+          ${activeProject === "project2" ? "mt-[30vh]" : "hidden xl:flex"}
         `}
       >
         <ProjectTwo />

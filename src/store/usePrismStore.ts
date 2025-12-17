@@ -1,8 +1,7 @@
-
 import { create } from "zustand";
 import { computePrismGeometry } from "@/components/lib/prism/computePrismGeometry";
 import { computeBeamGeometry } from "@/components/lib/prism/computeBeamGeometry";
-import type { PrismGeometry, BeamGeometry } from "@/components/lib/prism/prismTypes";
+import type { PrismGeometry, BeamGeometry } from "@/types/prismTypes";
 
 interface PrismState {
   prism: PrismGeometry | null;

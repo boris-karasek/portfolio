@@ -1,5 +1,5 @@
 
-import type { PrismGeometry, BeamGeometry, BeamPolygon } from "@/components/lib/prism/prismTypes";
+import type { PrismGeometry, BeamGeometry, BeamPolygon } from "@/types/prismTypes";
 
 
 export function computeBeamGeometry(prism: PrismGeometry): BeamGeometry {

@@ -10,7 +10,6 @@ A modern, animated portfolio website showcasing frontend development skills with
 - **Mobile Navigation Menu** – Animated floating menu with section shortcuts
 - **Section-Based Architecture** – Hero, About, Projects, and Contact sections with scroll-based tracking
 - **Type-Safe** – Full TypeScript support with strict mode enabled
-- **Accessible** – Semantic HTML and ARIA labels throughout
 
 ## 🛠️ Tech Stack
 
@@ -79,7 +78,7 @@ src/
 ├── components/
 │   ├── features/              # Feature components
 │   │   ├── background/        # Prism background & effects
-│   │   ├── mainSections/      # Page sections
+│   │   ├── sections/          # Page sections
 │   │   └── mobileNavigation/  # Mobile menu
 │   ├── lib/prism/             # Geometry calculations
 │   ├── routing/               # Layout & routing
@@ -97,28 +96,29 @@ src/
 - **[`useUIStore`](src/store/useUIStore.ts)** – Tracks current section, active project, and visibility states
 - **[`usePrismStore`](src/store/usePrismStore.ts)** – Manages prism geometry and beam calculations
 - **[`useMobileNavStore`](src/store/useMobileNavStore.ts)** - Manages mobile navigation state
+- **[`useScreenStore`](src/store/useScreenStore.ts)** – Manages the current screen size (mobile / medium / desktop)
+- **[`useSectionRefsStore`](src/store/useSectionRefsStore.ts)** – Stores React refs for page sections to enable scrolling and DOM access
 
 ### Custom Hooks
-- **[`useIsMobile`](src/hooks/useIsMobile.ts)** – Detects mobile viewport
 - **[`useSectionObserver`](src/hooks/useSectionObserver.ts)** – Tracks section visibility for navigation
+- **[`useScreenListener`](src/hooks/useScreenListener.ts)** – Listens to window resize events and updates the screen state (mobile / medium / desktop)
 
 ### Background System
 - **[`PrismBackground`](src/components/features/background/PrismBackground.tsx)** – Main SVG background with animations
 - **[`RainbowBeams`](src/components/features/background/RainbowBeams.tsx)** – Animated light beams
 - **[`StarsBackground`](src/components/features/background/StarsBackground.tsx)** – Twinkling stars layer
 
-## 🚀 Roadmap
-
-### v1.1
-- [ ] SEO optimization (meta tags, structured data)
-
 ### Prism Geometry
 Modify calculations in [`src/components/lib/prism/computePrismGeometry.ts`](src/components/lib/prism/computePrismGeometry.ts) to adjust triangle size and position.
+
+### Beam Geometry
+Modify calculations in [`src/components/lib/prism/computeBeamGeometry.ts`](src/components/lib/prism/computeBeamGeometry.ts) to control the light beams emitted from the prism.  
+This includes beam length, thickness, spread angle, color distribution, and interpolation along the prism edge.
 
 ### Content
 Update section content in:
 - [`src/pages/Home.tsx`](src/pages/Home.tsx) – Main page structure
-- [`src/components/features/mainSections/`](src/components/features/mainSections/) – Individual sections
+- [`src/components/features/sections/`](src/components/features/sections/) – Individual sections
 
 ## 📝 License
 

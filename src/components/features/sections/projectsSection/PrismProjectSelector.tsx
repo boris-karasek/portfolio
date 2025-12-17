@@ -33,29 +33,42 @@ export const PrismProjectSelector = () => {
     <svg
       viewBox={`0 0 ${width} ${height}`}
       preserveAspectRatio="xMidYMid slice"
-      className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-      role="presentation"
+      className="absolute inset-0 w-full h-full z-20 pointer-events-none"
     >
       <defs>
         {/* Gradient for text fill */}
-        <linearGradient id="textGradient" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="objectBoundingBox">
+        <linearGradient
+          id="textGradient"
+          x1="0%"
+          y1="0%"
+          x2="0%"
+          y2="100%"
+          gradientUnits="objectBoundingBox"
+        >
           <stop offset="0%" stopColor="#3A7DFF" />
           <stop offset="50%" stopColor="#6FFFEF" />
           <stop offset="100%" stopColor="#0EBE8C" />
         </linearGradient>
 
         {/* Optional: gradient stroke width highlight */}
-        <linearGradient id="strokeGradient" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="objectBoundingBox">
+        <linearGradient
+          id="strokeGradient"
+          x1="0%"
+          y1="0%"
+          x2="0%"
+          y2="100%"
+          gradientUnits="objectBoundingBox"
+        >
           <stop offset="0%" stopColor="#3A7DFF" />
           <stop offset="50%" stopColor="#6FFFEF" />
           <stop offset="100%" stopColor="#0EBE8C" />
         </linearGradient>
       </defs>
       <motion.g
-        pointerEvents="auto"
+        pointerEvents="none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ delay: 1, duration: 1, ease: "easeOut" }}
       >
         {/* Left Triangle */}
         <polygon
@@ -78,10 +91,10 @@ export const PrismProjectSelector = () => {
           x={(left.x + centerX) / 2}
           y={left.y - 10}
           fill={activeProject === "project1" ? "url(#textGradient)" : "white"}
-          fontSize="20"
           fontWeight="bold"
           textAnchor="middle"
           style={{ pointerEvents: "none" }}
+          className="text-xs md:text-base lg:text-xl"
         >
           Project One
         </text>
@@ -107,10 +120,10 @@ export const PrismProjectSelector = () => {
           x={(centerX + right.x) / 2}
           y={right.y - 10}
           fill={activeProject === "project2" ? "url(#textGradient)" : "white"}
-          fontSize="20"
           fontWeight="bold"
           textAnchor="middle"
           style={{ pointerEvents: "none" }}
+          className="text-xs  md:text-base lg:text-xl"
         >
           Project Two
         </text>

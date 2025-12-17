@@ -1,24 +1,33 @@
 import { useEffect } from "react";
 import { useUIStore } from "@/store/useUIStore";
 import type { SectionId } from "@/store/useUIStore";
+import { useSectionRefs } from "@/store/useSectionRefsStore";
 
-export function useSectionObserver(sections: { id: SectionId; ref: React.RefObject<HTMLElement | null> }[]) {
-  const setCurrentSection = useUIStore(s => s.setCurrentSection);
-  const setSectionFullyVisible = useUIStore(s => s.setSectionFullyVisible);
+export function useSectionObserver() {
+  const refs = useSectionRefs((s) => s.refs);
+  const setCurrentSection = useUIStore((s) => s.setCurrentSection);
+  const setSectionFullyVisible = useUIStore((s) => s.setSectionFullyVisible);
 
   useEffect(() => {
     const root = document.querySelector("#scroll-root");
+    if(!root) return;
+
+    const sections: {id: SectionId; node: HTMLElement}[] = (Object.keys(refs) as SectionId[])
+      .map((id) => ({id, node: refs[id].current}))
+      .filter((s): s is {id: SectionId; node: HTMLElement} => !!s.node);
+
+    if(sections.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const section = sections.find((s) => s.ref.current === entry.target);
-          if (!section) return;
+          const found = sections.find((s) => s.node === entry.target);
+          if (!found) return;
 
-          const visible = entry.intersectionRatio > 0.55;
+          const visible = entry.intersectionRatio > 0.3;
 
-          if (visible) setCurrentSection(section.id);
-          setSectionFullyVisible(section.id, visible);
+          if (visible) setCurrentSection(found.id);
+          setSectionFullyVisible(found.id, visible);
         });
       },
       {
@@ -27,8 +36,8 @@ export function useSectionObserver(sections: { id: SectionId; ref: React.RefObje
       }
     );
 
-    sections.forEach((s) => s.ref.current && observer.observe(s.ref.current));
+    sections.forEach((s) => observer.observe(s.node));
 
     return () => observer.disconnect();
-  }, []);
+  }, [refs, setCurrentSection, setSectionFullyVisible]);
 }
