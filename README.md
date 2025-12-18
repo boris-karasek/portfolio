@@ -51,10 +51,20 @@ A modern, animated portfolio website showcasing frontend development skills with
    ```
 
 3. **Start development server**
+
+   **Frontend only**
    ```bash
    npm run dev
    ```
-   Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+   **Full-stack development**
+   - The contact form **will NOT work** when running `npm run dev`
+   - To test the contact form locally, you must use:
+
+   ```bash
+   npm i -g vercel
+   vercel dev
+   ```
 
 4. **Build for production**
    ```bash
@@ -70,6 +80,8 @@ A modern, animated portfolio website showcasing frontend development skills with
    ```bash
    npm run lint
    ```
+
+
 
 ## 📁 Project Structure
 
@@ -119,6 +131,18 @@ This includes beam length, thickness, spread angle, color distribution, and inte
 Update section content in:
 - [`src/pages/Home.tsx`](src/pages/Home.tsx) – Main page structure
 - [`src/components/features/sections/`](src/components/features/sections/) – Individual sections
+
+### Environment Variables
+
+Environment variables are required for the contact form and reCAPTCHA.
+They are configured in the Vercel dashboard and loaded automatically when using `vercel dev`.
+
+A `.env` file is not included in this repository for security reasons.
+
+## 🚀 Deployment
+
+The project is deployed on Vercel.  
+Serverless API routes and environment variables are managed via the Vercel dashboard.
 
 ## 📝 License
 

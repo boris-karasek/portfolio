@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useScreenStore } from "@/store/useScreenStore";
 
@@ -23,7 +23,7 @@ export const StarsBackground: React.FC<StarsBackgroundProps> = ({
 
   countMultiplier = (screen==="mobile") ? 20000 : 60000;
 
-  const generateStars = () => {
+  const generateStars = useCallback(() => {
     const numberOfStars = Math.floor(
       (window.innerWidth * window.innerHeight) / countMultiplier
     );
@@ -40,13 +40,13 @@ export const StarsBackground: React.FC<StarsBackgroundProps> = ({
     );
 
     setStars(generated);
-  };
+  },[countMultiplier] )
 
   useEffect(() => {
     generateStars();
     window.addEventListener("resize", generateStars);
     return () => window.removeEventListener("resize", generateStars);
-  }, []);
+  }, [generateStars]);
 
   return (
     <g mask="url(#outsidePrismMask)">

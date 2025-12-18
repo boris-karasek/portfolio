@@ -17,16 +17,24 @@ type TriangleItem = {
   fillId: string;
 };
 
-export const PrismTriangles: React.FC<PrismTrianglesProps> = ({ 
-  onSelect 
-}) => {
-  const heroVisible = useUIStore(
-    (s) => s.sectionFullyVisible.hero === true
-  );
+export const PrismTriangles: React.FC<PrismTrianglesProps> = ({ onSelect }) => {
+  const heroVisible = useUIStore((s) => s.sectionFullyVisible.hero === true);
   const prism = usePrismStore((s) => s.prism);
   const topControl = useAnimation();
   const leftControl = useAnimation();
   const rightControl = useAnimation();
+
+  // Animate triangles based on currentSection
+  useEffect(() => {
+    if (!prism) return;
+
+    const action = heroVisible
+      ? { opacity: 1, scale: 1, transition: { duration: 0.3 } }
+      : { opacity: 0, scale: 0.85, transition: { duration: 0.2 } };
+    topControl.start(action);
+    leftControl.start(action);
+    rightControl.start(action);
+  }, [heroVisible, prism, topControl, leftControl, rightControl]);
 
   if (!prism) return null;
 
@@ -60,14 +68,6 @@ export const PrismTriangles: React.FC<PrismTrianglesProps> = ({
       fillId: "gradRight",
     },
   ] satisfies TriangleItem[];
-
-  // Animate triangles based on currentSection
-  useEffect(() => {
-    const action = heroVisible ? { opacity: 1, scale: 1, transition: { duration: 0.3 } } : { opacity: 0, scale: 0.85, transition: { duration: 0.2 } };
-    topControl.start(action);
-    leftControl.start(action);
-    rightControl.start(action);
-  }, [heroVisible]);
 
   const interactiveVariants: Variants = {
     hover: {

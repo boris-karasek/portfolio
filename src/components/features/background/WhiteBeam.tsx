@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
+import type { LegacyAnimationControls, Variants } from "framer-motion";
 import { usePrismStore } from "@/store/usePrismStore";
 
 interface WhiteBeamProps {
-  aboutControls: any;
+  aboutControls: LegacyAnimationControls;
   whiteBeamVariants: Variants;
 }
 
