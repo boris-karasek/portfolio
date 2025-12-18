@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 
-export const HeroContent = ({ style }: { style?: any }) => (
+export const HeroContent = () => (
   <motion.div
     className="max-w-xl space-y-6"
     initial={{ y: 40, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 1, ease: "easeOut" }}
-    style={style}
   >
     <div className="h-1 w-14 bg-linear-to-br from-[#3A7DFF] via-[#6FFFEF] to-[#0EBE8C] rounded-full" />
 

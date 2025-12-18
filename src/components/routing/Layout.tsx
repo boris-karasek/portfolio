@@ -36,7 +36,7 @@ export const Layout: React.FC = () => {
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
+  }, [initialize]);
 
   const handleSelect = (section: SectionId) => {
     scrollToSection(section);

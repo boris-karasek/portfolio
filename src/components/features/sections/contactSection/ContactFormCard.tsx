@@ -61,11 +61,12 @@ export const ContactFormCard = () => {
 
       toast.success("Message sent successfully!");
       form.reset();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
-      toast.error(
-        error.message || "An error occurred while sending the message."
-      );
+
+      const message = error instanceof Error ? error.message : "An error occurred while sending the message."
+
+      toast.error( message );
     } finally {
       setIsLoading(false);
     }

@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
+import type { Variants, LegacyAnimationControls } from "framer-motion";
 import { usePrismStore } from "@/store/usePrismStore";
 
 interface RainbowBeamsProps {
-  aboutControls: any;
+  aboutControls: LegacyAnimationControls;
   rainbowBeamVariants: Variants;
 }
 
