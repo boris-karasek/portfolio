@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import emailjs from "@emailjs/browser";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -29,6 +30,10 @@ export const ContactFormCard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
+  const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,17 +52,18 @@ export const ContactFormCard = () => {
 
       if (!token) throw new Error("reCAPTCHA token not generated");
 
-      const res = await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, token }),
-      });
+      const res = await emailjs.send(
+        serviceID,
+        templateID,
+        {
+          name: values.name,
+          email: values.email,
+          message: values.message,
+        },
+        publicKey
+      );
 
-      if (!res.ok) throw new Error("Failed to send message");
-
-      const data = await res.json();
-
-      if (!data.success) throw new Error(data.error || "Unknown server error");
+      if (res.status !== 200) throw new Error("Failed to send message");
 
       toast.success("Message sent successfully!");
       form.reset();
