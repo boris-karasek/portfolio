@@ -136,6 +136,14 @@ VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
 
 **Note:** The contact form now sends emails directly from the frontend via EmailJS. The previous `/api/sendEmail` backend using Nodemailer is no longer used.
 
+For **Google reCAPTCHA v2**, add the following variables in your Vercel dashboard ( or `.env` locally for development):
+
+```bash
+VITE_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
+```
+> Replace the placeholders (`your_recaptcha_site_key_here`, etc.) with the values from your EmailJS dashboard.
+
 ## 🚀 Deployment
 
 The project is deployed on Vercel.  
