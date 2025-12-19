@@ -51,19 +51,8 @@ A modern, animated portfolio website showcasing frontend development skills with
    ```
 
 3. **Start development server**
-
-   **Frontend only**
    ```bash
    npm run dev
-   ```
-
-   **Full-stack development**
-   - The contact form **will NOT work** when running `npm run dev`
-   - To test the contact form locally, you must use:
-
-   ```bash
-   npm i -g vercel
-   vercel dev
    ```
 
 4. **Build for production**
@@ -80,8 +69,6 @@ A modern, animated portfolio website showcasing frontend development skills with
    ```bash
    npm run lint
    ```
-
-
 
 ## 📁 Project Structure
 
@@ -135,9 +122,19 @@ Update section content in:
 ### Environment Variables
 
 Environment variables are required for the contact form and reCAPTCHA.
-They are configured in the Vercel dashboard and loaded automatically when using `vercel dev`.
 
 A `.env` file is not included in this repository for security reasons.
+
+For **EmailJS**, add the following variables in your Vercel dashboard (or `.env` locally for development):
+
+```bash
+VITE_EMAILJS_SERVICE_ID=your_service_id_here
+VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
+VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
+```
+> Replace the placeholders (`your_service_id_here`, etc.) with the values from your EmailJS dashboard.
+
+**Note:** The contact form now sends emails directly from the frontend via EmailJS. The previous `/api/sendEmail` backend using Nodemailer is no longer used.
 
 ## 🚀 Deployment
 
