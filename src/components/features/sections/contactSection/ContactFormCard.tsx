@@ -52,8 +52,6 @@ export const ContactFormCard = () => {
 
       if (!token) throw new Error("reCAPTCHA token not generated");
       
-      console.log("EmailJS vars:", templateID, serviceID, publicKey);
-
       const res = await emailjs.send(
         serviceID,
         templateID,
