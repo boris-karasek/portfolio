@@ -28,7 +28,7 @@ export const ProjectsSection = () => {
       id="projects"
       ref={projectsRef}
       className="
-        relative z-20 w-full h-screen snap-start
+        relative z-20 w-full h-dvh snap-start
         flex flex-col items-center
         md:pt-[12vh]
         lg:pt-[16vh]

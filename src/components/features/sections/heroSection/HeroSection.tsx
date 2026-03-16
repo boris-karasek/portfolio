@@ -11,7 +11,7 @@ export const HeroSection = () => {
     <section
       ref={heroRef}
       id="hero"
-      className="relative snap-start h-screen w-full pointer-events-none"
+      className="relative snap-start h-dvh w-full pointer-events-none"
     >
       {/* Hero content on top */}
       <div className="relative z-10">

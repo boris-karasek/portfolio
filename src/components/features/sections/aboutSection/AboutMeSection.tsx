@@ -8,7 +8,7 @@ export const AboutMeSection = () => {
     <section
       id="about"
       ref={aboutRef}
-      className="min-h-screen snap-start px-6 sm:px-10 lg:px-18 md:pt-[25vh] lg:pt-[50vh] xl:pt-[8vh] flex relative"
+      className="h-dvh snap-start px-6 sm:px-10 lg:px-18 pt-[6dvh] md:pt-[25dvh] lg:pt-[50dvh] xl:pt-[8dvh] flex relative"
     >
       {/* Container with z-index to sit above SVG beams */}
       <div

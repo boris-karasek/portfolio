@@ -79,13 +79,13 @@ export const ContactFormCard = () => {
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-xs p-8 rounded-2xl border border-white/10 shadow-xs">
-      <h3 className="text-2xl font-semibold mb-6 bg-linear-to-br from-[#3A7DFF] via-[#6FFFEF] to-[#0EBE8C] text-transparent bg-clip-text">
+    <div className="bg-white/5 backdrop-blur-xs p-4 sm:p-5 lg:p-4 xl:p-8 rounded-2xl border border-white/10 shadow-xs">
+      <h3 className="text-lg sm:text-xl lg:text-base xl:text-2xl font-semibold mb-3 sm:mb-4 lg:mb-2 xl:mb-6 bg-linear-to-br from-[#3A7DFF] via-[#6FFFEF] to-[#0EBE8C] text-transparent bg-clip-text">
         Send a Message
       </h3>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 sm:space-y-3 lg:space-y-2 xl:space-y-5">
           <FormField
             control={form.control}
             name="name"
@@ -129,7 +129,7 @@ export const ContactFormCard = () => {
                 <FormControl>
                   <Textarea
                     {...field}
-                    className="bg-white/10 border-white/20 text-white min-h-[120px]"
+                    className="bg-white/10 border-white/20 text-white min-h-[80px] sm:min-h-[100px] lg:min-h-[80px] xl:min-h-[120px]"
                   />
                 </FormControl>
                 <FormMessage />

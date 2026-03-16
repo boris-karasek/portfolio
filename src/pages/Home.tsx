@@ -5,11 +5,11 @@ import { ContactSection } from "@/components/features/sections/contactSection/Co
 
 export const Home: React.FC = () => {
   return (
-    <div className="snap-y">
+    <>
       <HeroSection />
       <AboutMeSection />
       <ProjectsSection />
       <ContactSection />
-    </div>
+    </>
   );
 };
