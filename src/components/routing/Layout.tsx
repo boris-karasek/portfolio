@@ -42,12 +42,26 @@ export const Layout: React.FC = () => {
     scrollToSection(section);
   };
 
+  useEffect(() => {
+    const scrollRoot = document.getElementById("scroll-root");
+    if (!scrollRoot) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if(!scrollRoot.contains(e.target as Node)) {
+        scrollRoot.scrollTop += e.deltaY;
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: true});
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, []);
+
   return (
     <>
       <div
         ref={containerRef}
-        className={`absolute top-0 left-0 w-full z-10 pointer-events-none 
-          ${screen !== "desktop" ? "h-[30vh]" : "h-screen"} md:h-[50vh] xl:h-screen`}
+        className={`fixed top-0 left-0 w-full z-10 pointer-events-none 
+          ${screen !== "desktop" ? "h-[30vh]" : "h-dvh"} md:h-[50vh] xl:h-dvh`}
       >
         <PrismBackground />
       </div>
@@ -62,8 +76,8 @@ export const Layout: React.FC = () => {
 
       {projectsVisible && (
         <div
-          className={`absolute top-0 left-0 w-full z-20 pointer-events-none 
-          ${screen !== "desktop" ? "h-[30vh]" : "h-screen"} md:h-[50vh] xl:h-screen`}
+          className={`fixed top-0 left-0 w-full z-20 pointer-events-none 
+          ${screen !== "desktop" ? "h-[30vh]" : "h-dvh"} md:h-[50vh] xl:h-dvh`}
         >
           <PrismProjectSelector />
         </div>
@@ -72,8 +86,8 @@ export const Layout: React.FC = () => {
       <AnimatePresence>
         {screen === "desktop" && heroVisible && (
           <motion.div
-        className={`absolute top-0 left-0 w-full z-10 pointer-events-none 
-          ${screen !== "desktop" ? "h-[30vh]" : "h-screen"} md:h-[50vh] xl:h-screen`}
+        className={`fixed top-0 left-0 w-full z-10 pointer-events-none 
+          ${screen !== "desktop" ? "h-[30vh]" : "h-dvh"} md:h-[50vh] xl:h-dvh`}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ 
               opacity: 1, 
@@ -99,7 +113,7 @@ export const Layout: React.FC = () => {
 
       <main
         id="scroll-root"
-        className="relative z-0 h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar bg-black"
+        className="relative z-0 h-dvh w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar bg-black"
       >
         <Outlet />
       </main>
